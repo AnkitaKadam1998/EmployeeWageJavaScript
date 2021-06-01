@@ -29,6 +29,7 @@ let totalEmpHrs =0;
 let totalWorkingdays =0;
 let empHrs = 0;
 let empDailyWageArr = new Array();
+let empDailyWageMap = new Map();
 
 while(totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingdays < NUM_OF_WORKING_DAYS) {
 totalWorkingdays++;
@@ -36,6 +37,7 @@ let empCheck = Math.floor(Math.random() * 10) % 3;
 empHrs = getWorkingHours(empCheck);
 totalEmpHrs += empHrs;
 empDailyWageArr.push(calcDailyWage(empHrs));
+empDailyWageMap.set(totalWorkingdays, calcDailyWage(empHrs));
 }
 
 let empWage = calcDailyWage(totalEmpHrs);
@@ -44,6 +46,7 @@ console.log("Total Days: "+totalWorkingdays);
 console.log("Total Hours: "+totalEmpHrs);
 console.log("Daily Wage Array: "+empDailyWageArr);
 console.log("Employee Wage: "+empWage);
+
 
 let totalEmpWage = 0;
 
@@ -70,14 +73,12 @@ function mapDayWithWage(dailyWage) {
 let mapDaywithWageArr = empDailyWageArr.map(mapDayWithWage);
 console.log("Daily Wage Map : "+mapDaywithWageArr);
 
-
 function fulltimeWage(dailyWage) {
    return dailyWage.includes("160");
 }
 
 let fullDayWageArr = mapDaywithWageArr.filter(fulltimeWage);
 console.log("Daily Wage Filter when full time wage earned: "+fullDayWageArr);
-
 
 console.log("First Time full time wage was earned on Day: "+mapDaywithWageArr.find(fulltimeWage));
 
@@ -93,6 +94,12 @@ function totalDaysWorked(numofDays, dailyWage) {
    return numofDays;
 }
 console.log("Number of Days Employee Worked: "+empDailyWageArr.reduce(totalDaysWorked, 0));
+
+console.log("Map of Day with Daily wage")
+console.log(empDailyWageMap);
+console.log("Employee wage Map totalHrs: "+Array.from(empDailyWageMap.values()).reduce(totalWages, 0));
+
+
 
 
 
